@@ -16,7 +16,7 @@ public class TicTacToeFrame extends JFrame {
 	public TicTacToeFrame(){
 		//Create initial frame
 		setTitle("TicTacToe - Graeme Cliffe");
-		setSize(750, 662);
+		setSize(TicTacToePanel.DIMENSIONS_SIZE +150, TicTacToePanel.DIMENSIONS_SIZE + 62);
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		

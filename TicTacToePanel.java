@@ -13,7 +13,7 @@ public class TicTacToePanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int DIVISIONS = 3;
-	private static final int DIMENSIONS_SIZE = 600;
+	public static final int DIMENSIONS_SIZE = 600;
 	private static final int DIVISION_DIMENSION = DIMENSIONS_SIZE/DIVISIONS;
 	private static final int NEITHER = 0;
 	private static final int USER = 1;
@@ -72,14 +72,14 @@ public class TicTacToePanel extends JPanel{
 	private void paintStats(Graphics g) {
 		//Controls the stats panel.
 		g.setColor(Color.GRAY);
-		g.fillRect(600, 0, 900, 600);
+		g.fillRect(DIMENSIONS_SIZE, 0, (int)Math.round(DIMENSIONS_SIZE * 1.5), DIMENSIONS_SIZE);
 		
 		g.setColor(Color.BLACK);
 		Font textFont = new Font("Times New Roman", Font.PLAIN, 20);
 		g.setFont(textFont);
-		g.drawString("Games Won: " + playerWins, 610, 200);
-		g.drawString("Games Tied: " + tieGames, 610, 300);
-		g.drawString("Games Lost: " + aiWins, 610, 400);
+		g.drawString("Games Won: " + playerWins, DIMENSIONS_SIZE + 10, DIMENSIONS_SIZE/3);
+		g.drawString("Games Tied: " + tieGames, DIMENSIONS_SIZE + 10, DIMENSIONS_SIZE/2);
+		g.drawString("Games Lost: " + aiWins, DIMENSIONS_SIZE + 10, 2*DIMENSIONS_SIZE/3);
 	}
 	private void paintWin(Graphics g) {
 		//Controls the winning conditions
@@ -117,13 +117,13 @@ public class TicTacToePanel extends JPanel{
 	private void paintGame(Graphics g){
 		//Draws the current board
 		g.setColor(Color.RED);
-		g.fillRect(0, 0, 600, 600);
+		g.fillRect(0, 0, DIMENSIONS_SIZE, DIMENSIONS_SIZE);
 		
 		//Search through for the player/AI blocks, paint them blue/black.
 		for (int i = 0; i<DIVISIONS; i++){
 			for(int j = 0; j<DIVISIONS; j++){
-				int initialXCoord = i*200;
-				int initialYCoord = j*200;
+				int initialXCoord = i*DIVISION_DIMENSION;
+				int initialYCoord = j*DIVISION_DIMENSION;
 				if (gameArray[i][j] == USER){
 					g.setColor(Color.BLUE);
 					g.fillRect(initialXCoord, initialYCoord,  DIVISION_DIMENSION, DIVISION_DIMENSION);
@@ -226,7 +226,7 @@ public class TicTacToePanel extends JPanel{
 				if (gameArray[i][i] == USER){
 					playerBoxes++;
 				}
-				if (gameArray[i][2-i] == AI){
+				if (gameArray[i][i] == AI){
 					aiBoxes++;
 				}
 				if (gameArray[i][i] == NEITHER){
@@ -248,13 +248,13 @@ public class TicTacToePanel extends JPanel{
 			
 			//Check whether the top left to lower right diagonal has all but 1 box filled in
 			for (int i = 0; i<DIVISIONS; i++){
-				if (gameArray[i][2-i] == USER){
+				if (gameArray[i][(DIVISIONS - 1)-i] == USER){
 					playerBoxes++;
 				}
-				if (gameArray[i][2-i] == AI){
+				if (gameArray[i][(DIVISIONS - 1)-i] == AI){
 					aiBoxes++;
 				}
-				if (gameArray[i][2-i] == NEITHER){
+				if (gameArray[i][(DIVISIONS - 1)-i] == NEITHER){
 					boxesLeft++;
 					nextGuessRow = i;
 				}
@@ -265,7 +265,7 @@ public class TicTacToePanel extends JPanel{
 			}
 			if (aiBoxes == DIVISIONS - 1 && boxesLeft >0){
 				xGuessWin = nextGuessRow;
-				yGuessWin = 2-nextGuessRow;
+				yGuessWin = (DIVISIONS - 1)-nextGuessRow;
 			}
 			playerBoxes = 0;
 			aiBoxes = 0;
@@ -285,7 +285,7 @@ public class TicTacToePanel extends JPanel{
 			
 			//When the AI makes a guess, update the array and repaint the game board.
 			if (paint){
-				gameArray[xGuess][yGuess] = 2;
+				gameArray[xGuess][yGuess] = AI;
 			}
 			guessAttempts = 0;
 			}
@@ -335,9 +335,9 @@ public class TicTacToePanel extends JPanel{
 		
 		//Bottom left top right diagonal win
 		currentWin = true;
-		if (yGuess + xGuess == 2){
+		if (yGuess + xGuess == DIVISIONS - 1){
 			for (int i = 0; i<DIVISIONS; i++){
-				if (gameArray[i][2-i] != currentPlayer){
+				if (gameArray[i][(DIVISIONS - 1) -i] != currentPlayer){
 					currentWin = false;
 				}
 			}

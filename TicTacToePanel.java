@@ -378,13 +378,13 @@ private class MouseHandler implements MouseListener {
 					}
 					repaint();//If the game is not won we keep playing, move on to the AI's turn.
 					AISelect();
-					if (gameWon && winningPlayer != 1){
+					if (gameWon && winningPlayer != USER){
 						//Give the AI credit where credit's due! He won TTT while going second...
 						winningPlayer = AI;
 					}
 			
 				}
-				currentPlayer = 1;
+				currentPlayer = USER;
 			}
 		}
 	}

@@ -72,7 +72,7 @@ public class TicTacToePanel extends JPanel{
 	private void paintStats(Graphics g) {
 		//Controls the stats panel.
 		g.setColor(Color.GRAY);
-		g.fillRect(DIMENSIONS_SIZE, 0, (int)Math.round(DIMENSIONS_SIZE * 1.5), DIMENSIONS_SIZE);
+		g.fillRect(DIMENSIONS_SIZE, 0, DIMENSIONS_SIZE + 150, DIMENSIONS_SIZE);
 		
 		g.setColor(Color.BLACK);
 		Font textFont = new Font("Times New Roman", Font.PLAIN, 20);
